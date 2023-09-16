@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TravelAgency.Data.Data;
+
 namespace TravelAgency.Web
 {
     public class Program
@@ -8,6 +11,11 @@ namespace TravelAgency.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+
+            // Add DB settings
+            builder.Services.AddDbContextPool<TravelExpertsContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TravelExpertsConnection")));
+
 
             var app = builder.Build();
 
