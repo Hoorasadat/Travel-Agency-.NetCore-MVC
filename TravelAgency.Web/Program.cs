@@ -1,4 +1,11 @@
+
+
+// Developer: Hoora
+
+
 using Microsoft.EntityFrameworkCore;
+using TravelAgency.BLL.Interfaces;
+using TravelAgency.BLL.Repositories;
 using TravelAgency.Data.Data;
 
 namespace TravelAgency.Web
@@ -15,6 +22,10 @@ namespace TravelAgency.Web
 
             // Add DB settings
             builder.Services.AddDbContextPool<TravelExpertsContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TravelExpertsConnection")));
+
+
+            builder.Services.AddScoped<IBookingRepository, SQLBookingRepository>();
+
 
 
             var app = builder.Build();

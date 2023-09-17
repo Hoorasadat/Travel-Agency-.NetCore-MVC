@@ -19,9 +19,4 @@
     <ProjectReference Include="..\TravelAgency.Lib\TravelAgency.Lib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
