@@ -1,0 +1,68 @@
+﻿
+
+@* Developer: Hoora *@
+
+
+@model IList<BookingIndexViewModel>
+
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<h1 class="text-center text-primary fw-bold m-5">"List of Your Bookings</h1>
+
+<table class="table table-borderless table-responsive table-striped">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th>Booking Date</th>
+            <th>Booking No.</th>
+            <th>Traveler Count</th>
+            <th>Trip Type</th>
+            @* <th>Package</th> *@
+            <th>Itinerary No</th>
+            <th>Trip Start</th>
+            <th>Trip End</th>
+            <th>Description</th>
+            <th>Destination</th>
+            <th>Base Price</th>
+            <th>Agency Commission</th>
+            <th>Region</th>
+            <th>Fee Name</th>
+            <th>Class Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            DateTime? bookingDate = item.Booking.BookingDate;
+            DateOnly bookingDateOnly = new DateOnly(bookingDate.Value.Year, bookingDate.Value.Month, bookingDate.Value.Day);
+
+            DateTime? startDate = item.BookingDetail.TripStart;
+            DateOnly startDateOnly = new DateOnly(startDate.Value.Year, startDate.Value.Month, startDate.Value.Day);
+
+            DateTime? endDate = item.BookingDetail.TripEnd;
+            DateOnly endDateOnly = new DateOnly(endDate.Value.Year, endDate.Value.Month, endDate.Value.Day);
+
+            <tr>
+                <td>
+                    @bookingDateOnly
+                </td>
+                <td>@item.Booking.BookingNo</td>
+                <td>@item.Booking.TravelerCount</td>
+                <td>@item.Booking.TripType.Ttname</td>
+                @* <td>@item.Booking.Package.PkgName</td> *@
+                <td>@item.BookingDetail.ItineraryNo</td>
+                <td>@startDateOnly</td>
+                <td>@endDateOnly</td>
+                <td>@item.BookingDetail.Description</td>
+                <td>@item.BookingDetail.Destination</td>
+                <td>@item.BookingDetail.BasePrice</td>
+                <td>@item.BookingDetail.AgencyCommission</td>
+                <td>@item.BookingDetail.Region.RegionName</td>
+                <td>@item.BookingDetail.Fee.FeeName</td>
+                <td>@item.BookingDetail.Class.ClassName</td>
+            </tr>
+        }
+    </tbody>
+</table>
