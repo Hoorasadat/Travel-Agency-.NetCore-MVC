@@ -3,6 +3,8 @@
 // Developer: Hoora
 
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TravelAgency.BLL.Interfaces;
 using TravelAgency.BLL.Repositories;
@@ -26,6 +28,8 @@ namespace TravelAgency.Web
 
             builder.Services.AddScoped<IBookingRepository, SQLBookingRepository>();
 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<TravelExpertsContext>();
 
 
             var app = builder.Build();
@@ -43,6 +47,7 @@ namespace TravelAgency.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

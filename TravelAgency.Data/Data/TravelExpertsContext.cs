@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TravelAgency.Lib.Models;
 
 namespace TravelAgency.Data.Data;
 
-public partial class TravelExpertsContext : DbContext
+public partial class TravelExpertsContext : IdentityDbContext<IdentityUser>
 {
     public TravelExpertsContext()
     {
@@ -58,6 +60,12 @@ public partial class TravelExpertsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<IdentityUserRole<string>>().HasKey(r => new { r.UserId, r.RoleId });
+        modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(l => new { l.LoginProvider, l.ProviderKey });
+
+
         modelBuilder.Entity<Affiliation>(entity =>
         {
             entity.HasKey(e => e.AffilitationId)
