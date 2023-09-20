@@ -3,6 +3,7 @@
 // Developer: Hoora
 
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using TravelAgency.BLL.Interfaces;
@@ -14,21 +15,25 @@ namespace TravelAgency.Web.Controllers
     public class BookingsController : Controller
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public BookingsController(IBookingRepository bookingRepository)
+        public BookingsController(IBookingRepository bookingRepository, UserManager<IdentityUser> userManager)
         {
             _bookingRepository = bookingRepository;
+            _userManager = userManager;
         }
 
 
 
         // GET: BookingsController
-        public async Task<ActionResult> Index(int Id)
+        public async Task<ActionResult> Index()
         {
+
+            var userId = _userManager.GetUserId(User);
+            int Id = Convert.ToInt32(userId);
             try
             {
-                int id = 114;
-                IList<Booking> bookings = await _bookingRepository.GetAllBookingsByCstmrID(id);
+                IList<Booking> bookings = await _bookingRepository.GetAllBookingsByCstmrID(Id);
                 IList<BookingIndexViewModel> bookingListVM = new List<BookingIndexViewModel>();
 
                 foreach (var item in bookings)
