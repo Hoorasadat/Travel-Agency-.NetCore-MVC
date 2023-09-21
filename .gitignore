@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/TravelAgency.Data/Migrations/20230919231602_SeedAspNetUsers.cs
+/TravelAgency.Data/Migrations/20230919231602_SeedAspNetUsers.Designer.cs
+/TravelAgency.Web/appsettings.json

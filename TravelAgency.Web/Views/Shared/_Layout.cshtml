@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="~/StudentManagementSystem.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #811700;">
                 <div class="container-fluid">
@@ -92,14 +92,14 @@
     </div>
 
 
-    <div class="container d-flex flex-column">
+    <div class="container-fluid" d-flex flex-column">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <div class="fixed-bottom">
-        <footer class="container" style="background-color: #333; color: #fff; padding: 20px; text-align: center;">
+    <div class="fixed-bottom container-fluid">
+        <footer style="background-color: #333; color: #fff; padding: 20px; text-align: center;">
 
             <div class="container">
                 &copy; 2023 - TravelExperts.Web
