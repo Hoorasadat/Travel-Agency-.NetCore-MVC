@@ -42,8 +42,9 @@ namespace TravelAgency.Web.Controllers
 
             IdentityUser user = new IdentityUser()
             {
-                //Email = (registerVM.Email ? registerVM.Email : null),
-                UserName = registerVM.Username
+                Email = registerVM.Email,
+                UserName = registerVM.Username,
+                Id = Guid.NewGuid().ToString()
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, registerVM.Password);

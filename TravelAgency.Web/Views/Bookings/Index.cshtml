@@ -18,7 +18,7 @@
             <th>Booking No.</th>
             <th>Traveler Count</th>
             <th>Trip Type</th>
-            @* <th>Package</th> *@
+            <th>Package</th>
             <th>Itinerary No</th>
             <th>Trip Start</th>
             <th>Trip End</th>
@@ -36,13 +36,13 @@
         @foreach (var item in Model)
         {
             DateTime? bookingDate = item.Booking.BookingDate;
-            DateOnly bookingDateOnly = new DateOnly(bookingDate.Value.Year, bookingDate.Value.Month, bookingDate.Value.Day);
+            DateOnly? bookingDateOnly = bookingDate != null ? new DateOnly(bookingDate.Value.Year, bookingDate.Value.Month, bookingDate.Value.Day) : null;
 
             DateTime? startDate = item.BookingDetail.TripStart;
-            DateOnly startDateOnly = new DateOnly(startDate.Value.Year, startDate.Value.Month, startDate.Value.Day);
+            DateOnly? startDateOnly = startDate != null ? new DateOnly(startDate.Value.Year, startDate.Value.Month, startDate.Value.Day) : null;
 
             DateTime? endDate = item.BookingDetail.TripEnd;
-            DateOnly endDateOnly = new DateOnly(endDate.Value.Year, endDate.Value.Month, endDate.Value.Day);
+            DateOnly? endDateOnly = endDate != null ? new DateOnly(endDate.Value.Year, endDate.Value.Month, endDate.Value.Day) : null;
 
             <tr>
                 <td>
@@ -51,7 +51,7 @@
                 <td>@item.Booking.BookingNo</td>
                 <td>@item.Booking.TravelerCount</td>
                 <td>@item.Booking.TripType.Ttname</td>
-                @* <td>@item.Booking.Package.PkgName</td> *@
+                <td>@item.Booking.Package.PkgName</td>
                 <td>@item.BookingDetail.ItineraryNo</td>
                 <td>@startDateOnly</td>
                 <td>@endDateOnly</td>

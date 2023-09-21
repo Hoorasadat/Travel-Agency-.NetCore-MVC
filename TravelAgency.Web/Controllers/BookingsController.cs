@@ -16,11 +16,13 @@ namespace TravelAgency.Web.Controllers
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public BookingsController(IBookingRepository bookingRepository, UserManager<IdentityUser> userManager)
+        public BookingsController(IBookingRepository bookingRepository, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _bookingRepository = bookingRepository;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
 
@@ -28,7 +30,8 @@ namespace TravelAgency.Web.Controllers
         // GET: BookingsController
         public async Task<ActionResult> Index()
         {
-
+            if (!_signInManager.IsSignedIn(User))
+                return RedirectToAction("Login", "Account");
             var userId = _userManager.GetUserId(User);
             int Id = Convert.ToInt32(userId);
             try
@@ -44,7 +47,7 @@ namespace TravelAgency.Web.Controllers
 
                     bookingVM.Booking = booking;
                     bookingVM.BookingDetail = bookingDetail;
-
+                    
                     bookingVM.Booking.BookingDate = item.BookingDate;
                     bookingVM.Booking.BookingNo = item.BookingNo;
                     bookingVM.Booking.TravelerCount = item.TravelerCount;
@@ -53,32 +56,57 @@ namespace TravelAgency.Web.Controllers
                     tripType.Ttname = item.TripType.Ttname;
                     bookingVM.Booking.TripType = tripType;
 
-                    //Package package = new Package();
-                    //package.PkgName = item.Package.PkgName;
-                    //bookingVM.Booking.Package = package;
+                    Package package = new Package();
+                    package.PkgName = item.Package == null ? "" : item.Package.PkgName;
+                    bookingVM.Booking.Package = package;
 
                     BookingDetail bookingDetails1 = new BookingDetail();
-                    bookingDetails1 = item.BookingDetails.ToList()[0];
+                    if (item.BookingDetails.Count != 0)
+                    {
+                        bookingDetails1 = item.BookingDetails.ToList()[0];
 
-                    bookingVM.BookingDetail.ItineraryNo = bookingDetails1.ItineraryNo;
-                    bookingVM.BookingDetail.TripStart = bookingDetails1.TripStart;
-                    bookingVM.BookingDetail.TripEnd = bookingDetails1.TripEnd;
-                    bookingVM.BookingDetail.Description = bookingDetails1.Description;
-                    bookingVM.BookingDetail.Destination = bookingDetails1.Destination;
-                    bookingVM.BookingDetail.BasePrice = bookingDetails1.BasePrice;
-                    bookingVM.BookingDetail.AgencyCommission = bookingDetails1.AgencyCommission;
+                        bookingVM.BookingDetail.ItineraryNo = bookingDetails1.ItineraryNo;
+                        bookingVM.BookingDetail.TripStart = bookingDetails1.TripStart;
+                        bookingVM.BookingDetail.TripEnd = bookingDetails1.TripEnd;
+                        bookingVM.BookingDetail.Description = bookingDetails1.Description;
+                        bookingVM.BookingDetail.Destination = bookingDetails1.Destination;
+                        bookingVM.BookingDetail.BasePrice = bookingDetails1.BasePrice;
+                        bookingVM.BookingDetail.AgencyCommission = bookingDetails1.AgencyCommission;
 
-                    Region region = new Region();
-                    region.RegionName = bookingDetails1.Region.RegionName; 
-                    bookingVM.BookingDetail.Region = region;
+                        Region region = new Region();
+                        region.RegionName = bookingDetails1.Region.RegionName;
+                        bookingVM.BookingDetail.Region = region;
 
-                    Fee fee = new Fee();
-                    fee.FeeName = bookingDetails1.Fee.FeeName;
-                    bookingVM.BookingDetail.Fee = fee;
+                        Fee fee = new Fee();
+                        fee.FeeName = bookingDetails1.Fee.FeeName;
+                        bookingVM.BookingDetail.Fee = fee;
 
-                    Class @class = new Class();
-                    @class.ClassName = bookingDetails1.Class.ClassName;
-                    bookingVM.BookingDetail.Class = @class;
+                        Class @class = new Class();
+                        @class.ClassName = bookingDetails1.Class.ClassName;
+                        bookingVM.BookingDetail.Class = @class;
+                    }
+                    else
+                    {
+                        bookingVM.BookingDetail.ItineraryNo = null;
+                        bookingVM.BookingDetail.TripStart = null;
+                        bookingVM.BookingDetail.TripEnd = null;
+                        bookingVM.BookingDetail.Description = "";
+                        bookingVM.BookingDetail.Destination = "";
+                        bookingVM.BookingDetail.BasePrice = null;
+                        bookingVM.BookingDetail.AgencyCommission = null;
+
+                        Region region = new Region();
+                        region.RegionName = "";
+                        bookingVM.BookingDetail.Region = region;
+
+                        Fee fee = new Fee();
+                        fee.FeeName = "";
+                        bookingVM.BookingDetail.Fee = fee;
+
+                        Class @class = new Class();
+                        @class.ClassName = "";
+                        bookingVM.BookingDetail.Class = @class;
+                    }
 
                     bookingListVM.Add(bookingVM);
 
