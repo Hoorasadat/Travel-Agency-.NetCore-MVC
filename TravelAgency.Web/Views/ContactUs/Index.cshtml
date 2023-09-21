@@ -1,0 +1,65 @@
+﻿@using TravelAgency.Web.ViewModel.Agents;
+
+
+@* Developer: Jashish *@
+
+
+@model IList<AgentIndexVM>
+
+@{
+    ViewData["Title"] = "ContactUs";
+}
+
+<h1 class="text-center fw-bold m-5">Our Team</h1>
+
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        var agent = item.agentInfo;
+        string fullName = $"{agent.AgtFirstName} {agent.AgtMiddleInitial} {agent.AgtLastName}";
+        string address = $"{agent.AgncyAddress} \n  {agent.AgncyProv}, {agent.AgncyCountry}";
+
+        <div class="card" style="margin:10px; padding:10px;">
+            <h1>@fullName</h1>
+            <h3 class="title">@agent.AgtPosition</h3>
+            <p>@agent.AgtBusPhone</p>
+            <p>@address</p>
+        </div>
+    }
+</div>
+
+@* <table class="table table-borderless table-responsive table-striped">
+    <thead class="text-white" style="background-color: #811700;">
+        <tr>
+            <th>Package Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            DateTime? startDate = item.PkgStartDate;
+            DateOnly startDateOnly = new DateOnly(startDate.Value.Year, startDate.Value.Month, startDate.Value.Day);
+
+            DateTime? endDate = item.PkgEndDate;
+            DateOnly endDateOnly = new DateOnly(endDate.Value.Year, endDate.Value.Month, endDate.Value.Day);
+
+            
+            
+
+            <tr>
+                <td>
+                    @item.PkgName
+                </td>
+                <td>@item.PkgDesc</td>
+                <td>@startDateOnly</td>
+                <td>@endDateOnly</td>
+                <td>@item.PkgTotPrice</td>
+            </tr>
+        }
+    </tbody> 
+</table>*@

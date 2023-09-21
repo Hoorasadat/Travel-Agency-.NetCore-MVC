@@ -16,19 +16,17 @@
         <tr>
             <th>Booking Date</th>
             <th>Booking No.</th>
-            <th>Traveler Count</th>
+            <th>Tickets/Travellers</th>
             <th>Trip Type</th>
+            <th>Class</th>
             <th>Package</th>
             <th>Itinerary No</th>
             <th>Trip Start</th>
             <th>Trip End</th>
             <th>Description</th>
             <th>Destination</th>
-            <th>Base Price</th>
-            <th>Agency Commission</th>
+            <th>Price</th>
             <th>Region</th>
-            <th>Fee Name</th>
-            <th>Class Name</th>
         </tr>
     </thead>
 
@@ -44,6 +42,11 @@
             DateTime? endDate = item.BookingDetail.TripEnd;
             DateOnly? endDateOnly = endDate != null ? new DateOnly(endDate.Value.Year, endDate.Value.Month, endDate.Value.Day) : null;
 
+            decimal base_p = item.BookingDetail.BasePrice ?? 0;
+            decimal agency_p = item.BookingDetail.AgencyCommission ?? 0;
+            // Making sure user is never surprised
+            decimal total_price = Math.Round(base_p + agency_p, 2, MidpointRounding.AwayFromZero);
+
             <tr>
                 <td>
                     @bookingDateOnly
@@ -51,17 +54,15 @@
                 <td>@item.Booking.BookingNo</td>
                 <td>@item.Booking.TravelerCount</td>
                 <td>@item.Booking.TripType.Ttname</td>
+                <td>@item.BookingDetail.Class.ClassName</td>
                 <td>@item.Booking.Package.PkgName</td>
                 <td>@item.BookingDetail.ItineraryNo</td>
                 <td>@startDateOnly</td>
                 <td>@endDateOnly</td>
                 <td>@item.BookingDetail.Description</td>
                 <td>@item.BookingDetail.Destination</td>
-                <td>@item.BookingDetail.BasePrice</td>
-                <td>@item.BookingDetail.AgencyCommission</td>
+                <td>$ @total_price.ToString("N2")</td>
                 <td>@item.BookingDetail.Region.RegionName</td>
-                <td>@item.BookingDetail.Fee.FeeName</td>
-                <td>@item.BookingDetail.Class.ClassName</td>
             </tr>
         }
     </tbody>

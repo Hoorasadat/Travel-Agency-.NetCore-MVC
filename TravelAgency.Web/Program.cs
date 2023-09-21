@@ -28,6 +28,9 @@ namespace TravelAgency.Web
 
             builder.Services.AddScoped<IBookingRepository, SQLBookingRepository>();
             builder.Services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
+            builder.Services.AddScoped<IPackageRepository, SQLPackageRepository>();
+            builder.Services.AddScoped<IAgentDetsRepository, SQLAgentDetsRepository>();
+
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<TravelExpertsContext>();
