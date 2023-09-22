@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+// Developer: Jashish
+
+
 using TravelAgency.Lib.Created_Models;
-using TravelAgency.Lib.Models;
 
 namespace TravelAgency.BLL.Interfaces
 {
@@ -12,5 +11,4 @@ namespace TravelAgency.BLL.Interfaces
     {
         public IList<AgentDetails> getAllAgentDetails();
     }
-
 }

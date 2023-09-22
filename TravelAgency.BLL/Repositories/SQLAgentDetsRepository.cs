@@ -3,11 +3,9 @@
 // Developer: Jashish
 
 
-using Microsoft.EntityFrameworkCore;
 using TravelAgency.BLL.Interfaces;
 using TravelAgency.Data.Data;
 using TravelAgency.Lib.Created_Models;
-using TravelAgency.Lib.Models;
 
 namespace TravelAgency.BLL.Repositories
 {

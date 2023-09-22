@@ -3,11 +3,9 @@
 // Developer: Hoora
 
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TravelAgency.BLL.Interfaces;
-using TravelAgency.Data.Data;
 using TravelAgency.Lib.Models;
 using TravelAgency.Web.ViewModel.Account;
 
